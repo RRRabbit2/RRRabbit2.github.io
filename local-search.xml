@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>Hello World 哈哈哈哈</title>
+    <link href="/2024/04/12/hello-world/"/>
+    <url>/2024/04/12/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start-ABCDEFG"><a href="#Quick-Start-ABCDEFG" class="headerlink" title="Quick Start ABCDEFG"></a>Quick Start ABCDEFG</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>个人博客搭建</title>
+    <link href="/2024/04/12/bolg-with-hexo-and-github-actions/"/>
+    <url>/2024/04/12/bolg-with-hexo-and-github-actions/</url>
+    
+    <content type="html"><![CDATA[<h1 id="个人博客搭建"><a href="#个人博客搭建" class="headerlink" title="个人博客搭建"></a>个人博客搭建</h1><h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="完全-GitHub-Actions"><a href="#完全-GitHub-Actions" class="headerlink" title="完全 GitHub Actions"></a>完全 GitHub Actions</h3><p>从 2024 年 6 月 30 日起，所有 GitHub Pages 版本都将使用 GitHub Actions，建议直接使用 GitHub Actions 搭建个人博客。</p><p>(是直接把博客源码项目提交到 github.io 仓库中吗，如果想要源码是私有的该怎么操作？目前还没有摸清……)<br><img src="../img/image.png" alt="Github Pages 设置"></p><h3 id="GitHub-Actions-部署的页面空白"><a href="#GitHub-Actions-部署的页面空白" class="headerlink" title="GitHub Actions 部署的页面空白"></a>GitHub Actions 部署的页面空白</h3><p>使用 <code>git clone</code> 拉取主题仓库后，主题仓库中会自动生成 <code>.git</code> 文件。在提交博客源码时，主题仓库中的 <code>.git</code> 会与博客根目录中的 <code>.git</code> 冲突，导致主题目录不能成功提交，远程主机也就编译不出css/js文件，导致显示空白页。需要将 <code>.git</code> 文件从主题目录中删掉再提交，或者直接下载 <code>zip</code> 包，解压到指定路径。</p><p><a href="https://blog.csdn.net/liuhp123/article/details/114040409">Github action自动部署Hexo</a></p><h3 id="主题外面的内容不能覆盖"><a href="#主题外面的内容不能覆盖" class="headerlink" title="主题外面的内容不能覆盖"></a>主题外面的内容不能覆盖</h3><p>(1) 博客根目录下创建的 <code>_config.fluid.yml</code> 文件并不能覆盖 <code>/theme</code> 中 <code>_config.yml</code> 的配置。</p><p>(2) 如果根目录下 <code>/source</code> 中的文件如果和 <code>/theme</code> 目录下 <code>/source</code> 中的文件重名，会被 <code>/theme</code> 目录下的文件覆盖。</p><p><strong>注意：</strong> 在更新主题之前，需要把原来 <code>/theme</code> 目录下的 <code>_config.yml</code> 拷贝出来，按照更新说明在原有 <code>_config.yml</code> 中修改再拷贝回更新后的 <code>/theme</code> 目录中。</p><p><a href="https://hexo.fluid-dev.com/docs/guide/#%E8%A6%86%E7%9B%96%E9%85%8D%E7%BD%AE">Hexo Fluid 用户手册 - 覆盖配置</a>：可以在博客根目录下创建 <code>_config.fluid.yml</code> 文件，在主题修改时，重新拉取主题不会覆盖原来 <code>/theme</code> 中的 <code>_config.yml</code> 配置文件，只需修改 _config.fluid.yml 的配置即可。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+      <tag>github</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Git 学习</title>
+    <link href="/2024/04/12/vegetable-bird-git/"/>
+    <url>/2024/04/12/vegetable-bird-git/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h2 id="版本控制工具"><a href="#版本控制工具" class="headerlink" title="版本控制工具"></a>版本控制工具</h2><h3 id="diff-与-patch"><a href="#diff-与-patch" class="headerlink" title="diff 与 patch"></a>diff 与 patch</h3><p><strong>diff：</strong> 用来比较两个文件之间的区别，可以将差异保存成文件，如 diff.txt<br><strong>patch：</strong> 用于根据 diff文件 回滚数据</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">diff -n left.c right.c<br>patch -R right.c left.c<br></code></pre></td></tr></table></figure><h3 id="RCS-本地版本控制系统"><a href="#RCS-本地版本控制系统" class="headerlink" title="RCS 本地版本控制系统"></a>RCS 本地版本控制系统</h3><p>对 diff 和 patch 做了系统性的整合和管理</p><h3 id="CVS-amp-SVN-集中式版本控制工具"><a href="#CVS-amp-SVN-集中式版本控制工具" class="headerlink" title="CVS &amp; SVN 集中式版本控制工具"></a>CVS &amp; SVN 集中式版本控制工具</h3><h3 id="Git-分布式版本控制工具"><a href="#Git-分布式版本控制工具" class="headerlink" title="Git 分布式版本控制工具"></a>Git 分布式版本控制工具</h3><p>BitKeeper 分布式版本控制工具</p><h2 id="Git-1"><a href="#Git-1" class="headerlink" title="Git"></a>Git</h2><h3 id="Linux-系统设置-Git-命令自动补全"><a href="#Linux-系统设置-Git-命令自动补全" class="headerlink" title="Linux 系统设置 Git 命令自动补全"></a>Linux 系统设置 Git 命令自动补全</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> contrib/completion/git-completion.bash /etc/bash_completion.d/<br>. /etc/bash_completion <span class="hljs-comment"># 重新加载自动补齐脚本</span><br></code></pre></td></tr></table></figure><p>自动加载，在<code>~/.bash_profile</code>或全局文件<code>/etc/bashrc</code>中添加：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">if</span> [ -f /etc/bash completion]; <span class="hljs-keyword">then</span><br>. /etc/bash_completion<br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure><h3 id="Windows-系统-Git-安装"><a href="#Windows-系统-Git-安装" class="headerlink" title="Windows 系统 Git 安装"></a>Windows 系统 Git 安装</h3><p>开源的 git-lfs 存在一些问题，安装时不选择该组件。<br>TortoiseGit：Windows下的图形化 Git 管理工具</p><h3 id="Git-配置"><a href="#Git-配置" class="headerlink" title="Git 配置"></a>Git 配置</h3><h4 id="配置级别"><a href="#配置级别" class="headerlink" title="配置级别"></a>配置级别</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --system xx <span class="hljs-comment"># 系统配置，放在 %Git%/ete/gitconfig 目录下</span><br>git config --global xx  <span class="hljs-comment"># 用户配置，放在用户目录中的 ~/.gitconfig </span><br>git config --<span class="hljs-built_in">local</span> xx  <span class="hljs-comment"># 仓库配置，放在仓库目录中的 .git/config </span><br></code></pre></td></tr></table></figure><p>覆盖级别：local&gt;global&gt;system</p><h4 id="文本换行符配置【跨平台】"><a href="#文本换行符配置【跨平台】" class="headerlink" title="文本换行符配置【跨平台】"></a>文本换行符配置【跨平台】</h4><p>Windows 中的文本换行符用 “回车+换行（CRLF）” 表示，Linux 中文本换行用 “换行（LF）” 表示。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config -global core.autocrlf <span class="hljs-literal">true</span>  <span class="hljs-comment"># 提交时将 CRLF 换成  LF，签出时将 LF 换成 CRLF </span><br>git config -global core.autocrlf input  <span class="hljs-comment"># 提交时将 CRLF 换成  LF，签出时不转换 </span><br>git config -global core.autocrlf <span class="hljs-literal">false</span>  <span class="hljs-comment"># 不转换</span><br></code></pre></td></tr></table></figure><h4 id="中文编码配置"><a href="#中文编码配置" class="headerlink" title="中文编码配置"></a>中文编码配置</h4><p>git 默认使用 utf-8 编码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global gui.encoding utf-8<br>git config --global i18n.commitencoding utf-8  <span class="hljs-comment"># commit log 存储</span><br>git config --global i18n.logoutputencoding utf-8  <span class="hljs-comment"># 查看 git log</span><br>git config --global core.quotepath <span class="hljs-literal">false</span>  <span class="hljs-comment"># 显示路径中的中文</span><br></code></pre></td></tr></table></figure><h4 id="修改-git-commit-的内容"><a href="#修改-git-commit-的内容" class="headerlink" title="修改 git commit 的内容"></a>修改 git commit 的内容</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git commit --amend<br></code></pre></td></tr></table></figure><h4 id="ssh-认证"><a href="#ssh-认证" class="headerlink" title="ssh 认证"></a>ssh 认证</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t rsa -C 邮箱地址<br></code></pre></td></tr></table></figure><p>将公钥保存到 github 中的 setting 中。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+      <tag>雏鹰计划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
